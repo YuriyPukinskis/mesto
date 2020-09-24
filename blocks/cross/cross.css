@@ -3,4 +3,9 @@
     height:100%;
     max-width:40.7px;
     max-height:40.7px;
+    transition: 3s;
+}
+
+.cross:hover{
+    opacity: 50%;
 }
