@@ -1,0 +1,13 @@
+.info__button{
+    grid-area: button;
+    background-color:black;
+    max-width: 24px;
+    margin: 0;
+    padding: 0;
+    border:none;
+    transition: 3s;
+}
+
+.info__button:hover{
+    opacity: 60%;
+}

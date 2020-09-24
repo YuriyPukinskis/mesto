@@ -1,0 +1,10 @@
+.popup__close{
+    width:100%;
+    max-width: 40.7px;
+    position: absolute;
+    left: calc(50% + 215px);
+    top: calc(50% - 165px - 20.3px);
+    margin:0;
+    background: 0;
+    border:none;
+}
