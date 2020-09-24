@@ -10,10 +10,15 @@
 
   margin: 0 auto;
   max-width:358px;
+  transition: 3s;
 }
 
 @media screen and (max-width: 882px) {
   .popup__button{
     max-width: 238px;
   }
+}
+
+.popup__button:hover{
+  opacity: 80%;
 }

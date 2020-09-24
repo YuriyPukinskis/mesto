@@ -7,8 +7,9 @@
     margin:0;
     background: 0;
     border:none;
+    transition: 3s;
 }
 
 .popup__close:hover{
-    opacity: 50%;
+    opacity: 80%;
 }
