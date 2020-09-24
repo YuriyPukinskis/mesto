@@ -8,3 +8,7 @@
     background: 0;
     border:none;
 }
+
+.popup__close:hover{
+    opacity: 50%;
+}
