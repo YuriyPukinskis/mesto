@@ -8,69 +8,65 @@
 </head>
 <body>
   <div class="page">
-    <div class="popup"></div>
-    <form class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__name">
-      <input class="popup__occupation">
-      <button class="popup__button">Сохранить</button>
-      <button class="popup__close"><img class="cross" alt="Закрыть" src="./images/CloseIcon.png"></button>
-    </form>
+    
+    
     
     <header class="header">
       <img class="header__logo" src="./images/logo.png" alt="Логотип">
     </header>
     <main class="main">
+
       <section class="profile">
         <img class="profile__logo" src="./images/Avatar.png" alt="Аватар профиля">
-        <div class="info">
-            <h1 class="info__name">Жак-Ив Кусто</h1>
-            <p class="info__occupation">Исследователь океана</p>
-            <button class="info__button"><img class="info__edit" src="./images/EditButton.png" alt="Редактировать"></button>
+        <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <p class="profile__occupation">Исследователь океана</p>
+            <button class="profile__button" type="submit"></button>
         </div>
-        <button class="add-button"><img class="info__add" src="./images/Vector.png" alt="Добавить"></button>
+        <button class="profile__add-button" type="submit"></button>
       </section>
+
       <section class="elements">
         <div class="element">
           <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаевск">
           <div class="element__caption">
-            <p class="element__text">Карачаевск</p>
-            <img class="element__like" src="./images/Group.png" alt="Лайк">
+            <h2 class="element__text">Карачаевск</h2>
+            <button class="element__button" type="submit"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/elbrus.png" alt="Карачаевск">
           <div class="element__caption">
-            <p class="element__text">Гора Эльбрус</p>
-            <img class="element__like" src="./images/Group.png" alt="Лайк">
+            <h2 class="element__text">Гора Эльбрус</h2>
+            <button class="element__button" type="submit"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/dombay.png" alt="Карачаевск">
           <div class="element__caption">
-            <p class="element__text">Домбай</p>
-            <img class="element__like" src="./images/Group.png" alt="Лайк">
+            <h2 class="element__text">Домбай</h2>
+            <button class="element__button" type="submit"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/elbrus.png" alt="Карачаевск">
           <div class="element__caption">
-            <p class="element__text">Гора Эльбрус</p>
-            <img class="element__like" src="./images/Group.png" alt="Лайк">
+            <h2 class="element__text">Гора Эльбрус</h2>
+            <button class="element__button" type="submit"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/dombay.png" alt="Карачаевск">
           <div class="element__caption">
-            <p class="element__text">Домбай</p>
-            <img class="element__like" src="./images/Group.png" alt="Лайк">
+            <h2 class="element__text">Домбай</h2>
+            <button class="element__button" type="submit"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаевск">
           <div class="element__caption">
-            <p class="element__text">Карачаево-Черкессия</p>
-            <img class="element__like" src="./images/Group.png" alt="Лайк">
+            <h2 class="element__text">Карачаево-Черкессия</h2>
+            <button class="element__button" type="submit"></button>
           </div>
         </div>
       </section>
@@ -79,6 +75,16 @@
       <p class="footer__text">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
- <script src="script.js"></script>
+
+  <div class="popup">
+    <form class="popup__container" name="editProfile">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input class="popup__input popup__input_name" name="name">
+      <input class="popup__input popup__input_occupation" name="job">
+      <button class="popup__button" type="submit" name="submit">Сохранить</button>
+      <button class="popup__close" type="submit"></button>
+    </form>
+  </div>
+ <script src="./scripts/script.js"></script>
 </body>
 </html>

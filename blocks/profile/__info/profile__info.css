@@ -1,0 +1,14 @@
+.profile__info{
+  max-width:336px;
+  width:100%;
+  display: grid;
+  align-self: center;
+  column-gap: 17px;
+  grid-auto-columns: 0;
+  grid-template-columns: repeat(2,max-content);
+  grid-template-rows: repeat(2, max-content);
+  align-items: baseline;
+  grid-template-areas:
+  "name button"
+  "occupation occupation"
+}

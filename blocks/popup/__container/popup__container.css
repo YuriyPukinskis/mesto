@@ -6,12 +6,11 @@
   background-color: white;
   color: black;
   z-index: 2;
-  position: absolute;
-  left:calc(50% - 215px);
-  top:calc(50% - 165px);
   display: flex;
+  margin:auto auto;
   display: none;
   flex-direction: column;
+  font-family: 'Inter', ‘Arial’, sans-serif;
 }
 
 @media screen and (max-width: 882px) {
