@@ -13,14 +13,13 @@ let infoButton = info.querySelector('.profile__button');
 
 function openProfile(){
   popup.classList.add('popup_visible');
-  popupContainer.classList.add('popup__container_visible');
+  
   nameInput.value=pageProfileName.textContent;
   jobInput.value=pageProfileJob.textContent;
 }
 
 function formClose(){
   popup.classList.remove('popup_visible');
-  popupContainer.classList.remove('popup__container_visible');
 }
 
 function formSubmitHandler (evt) {

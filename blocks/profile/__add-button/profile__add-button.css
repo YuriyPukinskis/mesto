@@ -7,6 +7,7 @@
   background: url('../../../images/Vector.png') no-repeat;
   background-position: center;
   transition:3s;
+  border: 1px solid #FFFFFF;
 }
 
 @media screen and (max-width: 882px) {

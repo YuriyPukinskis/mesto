@@ -1,22 +1,21 @@
 .popup__container{
   width: 100%;
   max-width: 430px;
-  height: 100%;
-  max-height: 330px;
   background-color: white;
   color: black;
   z-index: 2;
   display: flex;
   margin:auto auto;
-  display: none;
   flex-direction: column;
   font-family: 'Inter', ‘Arial’, sans-serif;
+
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 882px) {
   .popup__container{
     max-width: 282px;
-    max-height: 322px;
     left:calc(50% - 141px);
     top:calc(50% - 161px);
   }

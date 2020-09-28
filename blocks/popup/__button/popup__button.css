@@ -11,6 +11,11 @@
   margin: 0 auto;
   max-width:358px;
   transition: 3s;
+
+  margin-bottom: 36.51px;
+  width:100%;
+  max-width:358px;
+  margin-top: 18.26px;
 }
 
 @media screen and (max-width: 882px) {
