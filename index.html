@@ -27,48 +27,6 @@
       </section>
 
       <section class="elements">
-        <div class="element">
-          <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаевск">
-          <div class="element__caption">
-            <h2 class="element__text">Карачаевск</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/elbrus.png" alt="Карачаевск">
-          <div class="element__caption">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/dombay.png" alt="Карачаевск">
-          <div class="element__caption">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/elbrus.png" alt="Карачаевск">
-          <div class="element__caption">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/dombay.png" alt="Карачаевск">
-          <div class="element__caption">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаевск">
-          <div class="element__caption">
-            <h2 class="element__text">Карачаево-Черкессия</h2>
-            <button class="element__button" type="button"></button>
-          </div>
-        </div>
       </section>
     </main>
     <footer class="footer">
@@ -85,6 +43,31 @@
       <button class="popup__close" type="button"></button>
     </form>
   </div>
+  <div class="place-popup">
+    <form class="place-popup__container" name="editPlace">
+      <h2 class="place-popup__title">Новое место</h2>
+      <input class="place-popup__input place-popup__input_name" placeholder='Название' name="place-name">
+      <input class="place-popup__input place-popup__input_image" placeholder='Ссылка на картинку' name="place-image">
+      <button class="place-popup__button" type="submit" name="place-submit">Сохранить</button>
+      <button class="place-popup__close" type="button"></button>
+    </form>
+  </div>
+  <div class="image-popup">
+    <span class="image-popup__container">
+      <img class="image-popup__img" src="#" alt="Изображение">
+      <button class="image-popup__close" type="button"></button>
+    </span>
+  </div>
+  <template id="card-template">
+    <div class="element">
+      <img class="element__img">
+      <button class="element__delete" type="button"></button>
+      <div class="element__caption">
+        <h2 class="element__text"></h2>
+        <button class="element__button" type="button"></button>
+      </div>
+    </div>
+  </template>
  <script src="./scripts/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+.element__delete{
+  position: absolute;
+  top:23.79px;
+  right:16.28px;
+  background: none;
+  border: none;
+  background: url("../../../images/Trash.png") no-repeat;
+  background-size: contain;
+
+  z-index:2;
+  height: 13.51px;
+}

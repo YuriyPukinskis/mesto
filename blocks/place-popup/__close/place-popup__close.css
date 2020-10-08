@@ -1,0 +1,25 @@
+.place-popup__close{
+    width:100%;
+    max-width: 40.7px;
+    height: 40.7px;
+    position: absolute;
+    left: calc(50% + 215px);
+    top: calc(50% - 165px - 20.3px);
+    margin:0;
+    padding: 0;
+    background: url('../../../images/CloseIcon.png') no-repeat;
+    background-size: contain;
+    border:none;
+    transition: 3s;
+}
+
+.place-popup__close:hover{
+    opacity: 80%;
+}
+
+@media screen and (max-width: 882px) {
+    .place-popup__close{
+      left:calc(50% + 141px - 36.375px);
+      top: calc(50% - 165px - 33.92px);
+    }
+  }
