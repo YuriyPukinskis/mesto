@@ -1,4 +1,4 @@
-.place-popup__input{
+.popup__input{
   margin: 0 auto;
     
   margin-bottom: 29.74px;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 882px) {
-  .place-popup__input {
+  .popup__input {
     max-width:238px;
   }
 }

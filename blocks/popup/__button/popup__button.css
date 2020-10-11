@@ -1,4 +1,4 @@
-.place-popup__button{
+.popup__button{
   background-color: black;
   color: white;
   font-family: 'Inter', ‘Arial’, sans-serif;
@@ -23,12 +23,12 @@
 }
 
 @media screen and (max-width: 882px) {
-  .place-popup__button{
+  .popup__button{
     max-width: 238px;
     height: 46px;
   }
 }
 
-.place-popup__button:hover{
+.popup__button:hover{
   opacity: 80%;
 }

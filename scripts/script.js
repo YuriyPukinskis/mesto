@@ -1,12 +1,12 @@
-const profilePopup = document.querySelector('.profile-popup');
-const popupContainer = document.querySelector('.profile-popup__container');
+const profilePopup = document.querySelector('.popup');
+const popupContainer = document.querySelector('.profile-container');
 const nameInput = popupContainer.querySelector('.profile-popup__input_name');
 const jobInput = popupContainer.querySelector('.profile-popup__input_occupation');
-const closeButton = popupContainer.querySelector('.profile-popup__close');
+const closeButton = popupContainer.querySelector('.profile__close');
 
 const placePopup = document.querySelector('.place-popup');
-const placePopupContainer = document.querySelector('.place-popup__container');
-const placeCloseButton = placePopupContainer.querySelector('.place-popup__close');
+const placePopupContainer = document.querySelector('.place-container');
+const placeCloseButton = placePopupContainer.querySelector('.popup__close');
 
 const profile = document.querySelector('.profile');
 const info = profile.querySelector('.profile__info');
@@ -52,7 +52,7 @@ const initialCards = [
 
 function openProfile(){
   openPopup(profilePopup);
-  
+    
   nameInput.value=pageProfileName.textContent;
   jobInput.value=pageProfileJob.textContent;
 }
