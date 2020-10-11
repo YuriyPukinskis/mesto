@@ -1,4 +1,4 @@
-.popup__button{
+.profile-popup__button{
   background-color: black;
   color: white;
   font-family: 'Inter', ‘Arial’, sans-serif;
@@ -23,12 +23,12 @@
 }
 
 @media screen and (max-width: 882px) {
-  .popup__button{
+  .profile-popup__button{
     max-width: 238px;
     height: 46px;
   }
 }
 
-.popup__button:hover{
+.profile-popup__button:hover{
   opacity: 80%;
 }

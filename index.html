@@ -34,16 +34,16 @@
     </footer>
   </div>
 
-  <div class="popup">
-    <form class="popup__container" name="editProfile">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__input popup__input_name" name="name">
-      <input class="popup__input popup__input_occupation" name="job">
-      <button class="popup__button" type="submit" name="submit">Сохранить</button>
-      <button class="popup__close" type="button"></button>
+  <div class="popup profile-popup">
+    <form class="profile-popup__container" name="editProfile">
+      <h2 class="profile-popup__title">Редактировать профиль</h2>
+      <input class="profile-popup__input profile-popup__input_name" name="name">
+      <input class="profile-popup__input profile-popup__input_occupation" name="job">
+      <button class="profile-popup__button" type="submit" name="submit">Сохранить</button>
+      <button class="profile-popup__close" type="button"></button>
     </form>
   </div>
-  <div class="place-popup">
+  <div class="popup place-popup">
     <form class="place-popup__container" name="editPlace">
       <h2 class="place-popup__title">Новое место</h2>
       <input class="place-popup__input place-popup__input_name" placeholder='Название' name="place-name">
@@ -52,11 +52,12 @@
       <button class="place-popup__close" type="button"></button>
     </form>
   </div>
-  <div class="image-popup">
-    <span class="image-popup__container">
+  <div class="popup image-popup">
+    <div class="image-popup__container">
       <img class="image-popup__img" src="#" alt="Изображение">
+      <div class="caption"></div>
       <button class="image-popup__close" type="button"></button>
-    </span>
+    </div>
   </div>
   <template id="card-template">
     <div class="element">

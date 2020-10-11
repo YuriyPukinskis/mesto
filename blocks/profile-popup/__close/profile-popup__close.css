@@ -1,4 +1,4 @@
-.popup__close{
+.profile-popup__close{
     width:100%;
     max-width: 40.7px;
     height: 40.7px;
@@ -13,12 +13,12 @@
     transition: 3s;
 }
 
-.popup__close:hover{
+.profile-popup__close:hover{
     opacity: 80%;
 }
 
 @media screen and (max-width: 882px) {
-    .popup__close{
+    .profile-popup__close{
       left:calc(50% + 141px - 36.375px);
       top: calc(50% - 165px - 33.92px);
     }
