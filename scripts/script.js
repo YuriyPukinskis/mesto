@@ -4,6 +4,8 @@ const nameInput = popupContainer.querySelector('.profile-popup__input_name');
 const jobInput = popupContainer.querySelector('.profile-popup__input_occupation');
 const closeButton = popupContainer.querySelector('.profile__close');
 
+const popup = document.querySelector('.popup');
+const container = popup.querySelector('.popup__container');
 const placePopup = document.querySelector('.place-popup');
 const placePopupContainer = document.querySelector('.place-container');
 const placeCloseButton = placePopupContainer.querySelector('.popup__close');
@@ -87,7 +89,7 @@ function getCardElement(element) {
   elementImg.onclick= function (evt) {
     imagePopup.classList.add('popup_visible');
     bigImage.src=evt.target.src;
-    bigImage.alt = evt.target.parentElement.lastElementChild.firstElementChild.textContent;
+    bigImage.alt = evt.target.alt;
     caption.textContent = evt.target.parentElement.lastElementChild.firstElementChild.textContent;
   };
   return cardElement;
@@ -120,4 +122,35 @@ addPlaceButton.addEventListener('click', () => openPopup(placePopup));
 placeCloseButton.addEventListener('click', () => closePopup(placePopup));
 placePopupContainer.addEventListener('submit', addPlace);
 imagePopupCloseButton.addEventListener('click', () => closePopup(imagePopup));
+
+
+// popup.addEventListener('click',() => closePopup(popup));
+// document.addEventListener('keydown', function (evt) {
+//   if (evt.keyCode === 27) {
+//     evt.preventDefault();
+//     closePopup(popup);
+//   }
+// }); 
+
+const popups = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((formEl) => {
+    formEl.addEventListener('click',function(evt){
+      if(evt.target.classList.contains('popup__container')){
+        popup.removeEventListener('click',() => closePopup(popup));
+      }
+      if(evt.target.classList.contains('popup')){
+        closePopup(formEl);
+      }
+    });
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27) {
+        evt.preventDefault();
+        closePopup(formEl);
+      }
+    }); 
+  });
+};
+
+popups();
 initPlaces();
