@@ -12,6 +12,7 @@
     background-size: contain;
     border:none;
     transition: 3s;
+    cursor: pointer;
 }
 
 .image-popup__close:hover{

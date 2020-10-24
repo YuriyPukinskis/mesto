@@ -8,6 +8,7 @@
   transition: 3s; 
   background: url('../../../images/EditButton.png') no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
 .profile__button:hover{
