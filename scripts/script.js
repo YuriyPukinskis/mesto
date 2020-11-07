@@ -25,7 +25,7 @@ const imagePopup = document.querySelector('.image-popup');
 const bigImage = imagePopup.querySelector('.image-popup__img');
 const imagePopupCloseButton = imagePopup.querySelector('.image-popup__close');
 
-const cardTemplate = document.querySelector('#card-template').content;
+const cardTemplate = document.querySelector('#card-template');
 const escCode = 27;
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
@@ -79,8 +79,21 @@ const handleEscDown = (evt) => {
 }
 
 function openPopup(popup) {
+  const valid = new FormValidator(
+    {
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__button',
+      inactiveButtonClass: 'popup__button_inactive',
+      inputErrorClass: 'popup__input_type_error',
+      errorClass: 'popup__input-error_active'
+    }, popup.firstElementChild
+  );
+  
+  valid.enableValidation();
+
   popup.classList.add('popup_visible'); 
   document.addEventListener('keydown',handleEscDown);
+   
 }
 
 function closePopup(popup) {
@@ -90,8 +103,8 @@ function closePopup(popup) {
 
 function initPlaces(){
   initialCards.forEach(element => {
-    const card= new Card();
-    cardsContainer.append(card.getCardElement(element, cardTemplate));
+    const card= new Card(element, cardTemplate, imagePopup, imagePopupCloseButton);
+    cardsContainer.append(card.getCardElement());
   });
 }
 
@@ -103,26 +116,9 @@ function addPlace(evt) {
   const link = placesLink.value;
   placesName.form.reset();
 
-  const card= new Card();
-  const newCardElement = card.getCardElement({ name, link }, cardTemplate);
+  const card= new Card({name,link},cardTemplate,imagePopup, imagePopupCloseButton);
+  const newCardElement = card.getCardElement();
   cardsContainer.prepend(newCardElement);
-  const valid = new FormValidator(
-    '.popup__container',
-    '.popup__input',
-    '.popup__button',
-    '.popup__button_inactive',
-    '.popup__input_type_error',
-    '.popup__input-error_active'
-  );
-  
-  valid.enableValidation({
-    formSelector: '.popup__container',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-  }); 
   closePopup(placePopup);
 } 
 
@@ -144,25 +140,7 @@ const listenPopups = () => {
   });
 };
 
-const valid = new FormValidator(
-  '.popup__container',
-  '.popup__input',
-  '.popup__button',
-  '.popup__button_inactive',
-  '.popup__input_type_error',
-  '.popup__input-error_active'
-);
-
-valid.enableValidation({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}); 
-
-
-
 listenPopups();
 initPlaces();
+
+export {openPopup, closePopup};
