@@ -1,12 +1,8 @@
-import {openPopup, closePopup} from "./script.js";
-
 export class Card {
-  constructor(element, cardTemplate, imagePopup, imagePopupCloseButton){
-    this.element=element;
-    this.cardTemplate=cardTemplate;
-    this.imagePopup = imagePopup;
-    this.imagePopupCloseButton = imagePopupCloseButton;
-    imagePopupCloseButton.addEventListener('click', () => closePopup(imagePopup));
+  constructor(element, cardTemplate, handlePreviewPicture){
+    this._element = element;
+    this._cardTemplate=cardTemplate;
+    this._handlePreviewPicture = handlePreviewPicture;
   }
 
   _handleDeleteCard = (evt) => {
@@ -17,26 +13,16 @@ export class Card {
     evt.target.classList.toggle('element__button_liked');
   };
 
-  _handlePreviewPicture = (evt) => {
-    const imagePopup = document.querySelector('.image-popup');
-    const bigImage = imagePopup.querySelector('.image-popup__img');
-    const caption = document.querySelector('.caption');
-    openPopup(imagePopup);
-    bigImage.src=evt.target.src;
-    bigImage.alt = evt.target.alt;
-    caption.textContent = this.element.name;
-  };
-
   getCardElement() {
-    const card = this.cardTemplate.content;
-    const cardElement = card.cloneNode(true);
-    const elementImg = cardElement.querySelector('.element__img');
-    cardElement.querySelector('.element__text').textContent = this.element.name;
-    elementImg.src = this.element.link;
-    elementImg.alt = this.element.name;
-    cardElement.querySelector('.element__button').addEventListener('click', this._handleLikeIcon); 
-    cardElement.querySelector('.element__delete').addEventListener('click', this._handleDeleteCard); 
-    elementImg.addEventListener('click',this._handlePreviewPicture);
-    return cardElement;
+    const _card = this._cardTemplate.content;
+    const _cardElement = _card.cloneNode(true);
+    const _elementImg = _cardElement.querySelector('.element__img');
+    _cardElement.querySelector('.element__text').textContent = this._element.name;
+    _elementImg.src = this._element.link;
+    _elementImg.alt = this._element.name;
+    _cardElement.querySelector('.element__button').addEventListener('click', this._handleLikeIcon); 
+    _cardElement.querySelector('.element__delete').addEventListener('click', this._handleDeleteCard); 
+    _elementImg.addEventListener('click', () => this._handlePreviewPicture(this._element));
+    return _cardElement;
   } 
 }
