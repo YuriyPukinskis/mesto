@@ -63,7 +63,7 @@ function handlePreviewPicture(element) {
   bigImage.src= element.link
   bigImage.alt = element.name
   caption.textContent = element.name;
-  imagePopupCloseButton.addEventListener('click', () => closePopup(imagePopup));
+  
   openPopup(imagePopup);
 }
 
@@ -141,7 +141,7 @@ function addPlace(evt) {
 popupContainer.addEventListener('submit', formSubmitHandler);
 infoButton.addEventListener('click', openProfile);
 closeButton.addEventListener('click', () => closePopup(profilePopup));
-
+imagePopupCloseButton.addEventListener('click', () => closePopup(imagePopup));
 addPlaceButton.addEventListener('click', () => openPopup(placePopup));
 placeCloseButton.addEventListener('click', () => closePopup(placePopup));
 placePopupContainer.addEventListener('submit', addPlace);
