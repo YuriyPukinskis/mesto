@@ -1,8 +1,8 @@
 export class Card {
-  constructor(element, cardTemplate, handlePreviewPicture){
+  constructor(element, cardTemplate, handleCardClick){
     this._element = element;
     this._cardTemplate=cardTemplate;
-    this._handlePreviewPicture = handlePreviewPicture;
+    this._handlePreviewPicture = handleCardClick;
   }
 
   _handleDeleteCard = (evt) => {

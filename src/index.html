@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <title>Места России</title>
 </head>
 <body>
@@ -12,12 +12,12 @@
     
     
     <header class="header">
-      <img class="header__logo" src="./images/logo.png" alt="Логотип">
+      <img class="header__logo" src="<%=require('./images/logo.png')%>" alt="Логотип">
     </header>
     <main class="main">
 
       <section class="profile">
-        <img class="profile__logo" src="./images/Avatar.png" alt="Аватар профиля">
+        <img class="profile__logo" src="<%=require('./images/Avatar.png')%>" alt="Аватар профиля">
         <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__occupation">Исследователь океана</p>
@@ -60,7 +60,7 @@
     <div class="image-popup__container">
       <img class="image-popup__img" src="#" alt="Изображение">
       <div class="caption"></div>
-      <button class="image-popup__close" type="button"></button>
+      <button class="popup__close image-popup__close" type="button"></button>
     </div>
   </div>
   <template id="card-template">
@@ -73,8 +73,9 @@
       </div>
     </div>
   </template>
-  <script type="module" src="./scripts/script.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
+  <!-- <script type="module" src="./pages/index.js"></script>
+  <script type="module" src="./components/Card.js"></script>
+  <script type="module" src="./components/FormValidator.js"></script>
+  <script type="module" src="./components/Section.js"></script> -->
 </body>
 </html>
