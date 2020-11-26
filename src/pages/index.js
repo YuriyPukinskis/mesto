@@ -1,11 +1,11 @@
-import {Card} from './components/Card.js';
-import UserInfo from './components/UserInfo.js';
-import PopupWithImage from'./components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import {FormValidator} from './components/FormValidator.js';
-import Section from './components/Section.js';
-import{initialCards,cardPlace} from './constants/constants.js';
-import './pages/index.css';
+import {Card} from '../components/Card.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithImage from'../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import {FormValidator} from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import{initialCards,cardPlace} from '../constants/constants.js';
+import './index.css';
 
 
 const profilePopup = document.querySelector('.popup');
@@ -31,56 +31,19 @@ const placesLink = placePopup.querySelector('.place-popup__input_image');
 
 
 
-function handleCardClick() {
-  const pop = new PopupWithImage(imagePopup);
-  pop.open();
-  pop.setEventListeners();
+function handleCardClick(src,name) {
+  pop.open(src,name);
 }
 
 function openProfile(){
-  const user = new UserInfo(pageProfileName,pageProfileJob);
-  const pop = new PopupWithForm(
-    profilePopup,
-    (evt) => {
-      evt.preventDefault();
-      
-      user.setUserInfo(nameInput,jobInput);
-      pop.close();
-    }
-  )
-  pop.open();
-  pop.setEventListeners();
+  popProfile.open();
   const { name, job } = user.getUserInfo()
   nameInput.value = name;
   jobInput.value = job;
 }
 
 function addCard(){
-  const pop = new PopupWithForm(
-    placePopup,
-    (evt) => {
-      evt.preventDefault();
-       
-      const name = placesName.value;
-      const link = placesLink.value;
-      alert('i am called')       
-      const cardSection = new Section({
-        items: [{name,link}],
-        renderer: (item) => {
-          const card= createCard(item);
-          cardSection.addItemToStart(card);  
-        }
-      },
-      cardPlace
-      );
-      
-      cardSection.drawElem();
-      placesName.form.reset();
-      pop.close();
-    }
-  )
-  pop.open();
-  pop.setEventListeners();
+  popAddCard.open();
 }
 
 function vaidateForm(targetForm) {
@@ -103,13 +66,6 @@ function createCard(element) {
   return newCardElement
 }
 
-infoButton.addEventListener('click', openProfile);
-addPlaceButton.addEventListener('click', addCard);
-
-
-vaidateForm(popupContainer);
-vaidateForm(placePopupContainer);
-
 const cardSection = new Section({
   items: initialCards,
   renderer: (item) => {
@@ -119,5 +75,40 @@ const cardSection = new Section({
 },
 cardPlace
 );
+
+infoButton.addEventListener('click', openProfile);
+addPlaceButton.addEventListener('click', addCard);
+const user = new UserInfo(pageProfileName,pageProfileJob);
+const pop = new PopupWithImage(imagePopup);
+pop.setEventListeners();
+const popProfile = new PopupWithForm(
+  profilePopup,
+  (arr) => {  
+    // user.setUserInfo(nameInput.value,jobInput.value);
+    user.setUserInfo(arr.one.value,arr.two.value);
+    popProfile.close();
+  }
+);
+
+popProfile.setEventListeners();
+const popAddCard = new PopupWithForm(
+  placePopup,
+  (arr) => {
+    
+    const name = arr.one.value;
+    const link = arr.two.value;    
+    const card= createCard({name,link});
+    cardSection.addItemToStart(card);
+    cardSection.drawElem();
+    placesName.form.reset();
+    popAddCard.close();
+  }
+)
+popAddCard.setEventListeners();
+
+vaidateForm(popupContainer);
+vaidateForm(placePopupContainer);
+
+
 
 cardSection.drawElem();

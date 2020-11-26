@@ -13,11 +13,13 @@
     
     <header class="header">
       <img class="header__logo" src="<%=require('./images/logo.png')%>" alt="Логотип">
+      <!-- <img class="header__logo" src="./images/logo.png" alt="Логотип"> -->
     </header>
     <main class="main">
 
       <section class="profile">
         <img class="profile__logo" src="<%=require('./images/Avatar.png')%>" alt="Аватар профиля">
+        <!-- <img class="profile__logo" src="./images/Avatar.png" alt="Аватар профиля"> -->
         <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__occupation">Исследователь океана</p>
@@ -37,9 +39,9 @@
   <div class="popup profile-popup">
     <form class="popup__container profile-container" name="editProfile" novalidate>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input id="name-input" class="popup__input profile-popup__input_name" name="name" type="text" minlength="2" maxlength="20" required>
+      <input id="name-input" class="popup__input 1 profile-popup__input_name" name="name" type="text" minlength="2" maxlength="20" required>
       <span id="name-input-error" class="popup__input-error"></span> 
-      <input id="occupation-input" class="popup__input profile-popup__input_occupation" name="job" type="text" minlength="2" maxlength="200" required>
+      <input id="occupation-input" class="popup__input 2 profile-popup__input_occupation" name="job" type="text" minlength="2" maxlength="200" required>
       <span id="occupation-input-error" class="popup__input-error"></span> 
       <button class="popup__button profile__submit" type="submit" name="submit">Сохранить</button>
       <button class="popup__close profile__close" type="button"></button>

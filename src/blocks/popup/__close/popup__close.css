@@ -3,7 +3,7 @@
     max-width: 40.7px;
     height: 40.7px;
     position: absolute;
-    left: calc(50% + 215px);
+    right: calc(50% - 215px - 40px);
     top: calc(50% - 165px - 20.3px);
     margin:0;
     padding: 0;
@@ -20,7 +20,7 @@
 
 @media screen and (max-width: 882px) {
     .popup__close{
-      left:calc(50% + 141px - 36.375px);
+      right:calc(50% - 141px - 36.375px);
       top: calc(50% - 165px - 33.92px);
     }
   }

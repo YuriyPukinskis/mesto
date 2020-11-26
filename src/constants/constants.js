@@ -1,4 +1,4 @@
-export const escCode = 27;
+export const ESC_CODE = 27;
 export const initialCards = [
   {
     name: 'Архыз',

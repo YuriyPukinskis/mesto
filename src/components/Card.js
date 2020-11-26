@@ -22,7 +22,7 @@ export class Card {
     _elementImg.alt = this._element.name;
     _cardElement.querySelector('.element__button').addEventListener('click', this._handleLikeIcon); 
     _cardElement.querySelector('.element__delete').addEventListener('click', this._handleDeleteCard); 
-    _elementImg.addEventListener('click', () => this._handlePreviewPicture(this._element));
+    _elementImg.addEventListener('click', () => this._handlePreviewPicture(this._element.link,this._element.name));
     return _cardElement;
   } 
 }

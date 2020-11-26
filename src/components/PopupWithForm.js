@@ -6,12 +6,18 @@ export default class PopupWithForm extends Popup{
     this.submitCallback = submitCallback;
   }
 
-  _getInputValues(){
-
+  _getInputValues(evt){
+    evt.preventDefault();
+    const inputList = Array.from(this.popupSelector.querySelectorAll('.popup__input'));
+    const one = inputList[0];
+    const two = inputList[1];
+    return {one,two};
   }
 
   setEventListeners(){
     super.setEventListeners();
-    this.popupSelector.addEventListener('submit', this.submitCallback);
+    // this.popupSelector.addEventListener('submit', this.submitCallback.bind(this,this._getInputValues()));
+    this.popupSelector.addEventListener('submit', (evt)=> this.submitCallback(this._getInputValues(evt)));
+  //   // this.popupSelector.addEventListener('submit', this.submitCallback);
   }
 }
