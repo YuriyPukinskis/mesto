@@ -84,8 +84,7 @@ pop.setEventListeners();
 const popProfile = new PopupWithForm(
   profilePopup,
   (arr) => {  
-    // user.setUserInfo(nameInput.value,jobInput.value);
-    user.setUserInfo(arr.one.value,arr.two.value);
+    user.setUserInfo(arr[0].value,arr[1].value);
     popProfile.close();
   }
 );
@@ -95,11 +94,11 @@ const popAddCard = new PopupWithForm(
   placePopup,
   (arr) => {
     
-    const name = arr.one.value;
-    const link = arr.two.value;    
+    const name = arr[0].value;
+    const link = arr[1].value;    
     const card= createCard({name,link});
     cardSection.addItemToStart(card);
-    cardSection.drawElem();
+    
     placesName.form.reset();
     popAddCard.close();
   }
