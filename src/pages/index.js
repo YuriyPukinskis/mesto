@@ -32,7 +32,7 @@ const placesLink = placePopup.querySelector('.place-popup__input_image');
 
 
 function handleCardClick(src,name) {
-  pop.open(src,name);
+  popImage.open(src,name);
 }
 
 function openProfile(){
@@ -79,12 +79,12 @@ cardPlace
 infoButton.addEventListener('click', openProfile);
 addPlaceButton.addEventListener('click', addCard);
 const user = new UserInfo(pageProfileName,pageProfileJob);
-const pop = new PopupWithImage(imagePopup);
-pop.setEventListeners();
+const popImage = new PopupWithImage(imagePopup);
+popImage.setEventListeners();
 const popProfile = new PopupWithForm(
   profilePopup,
-  (arr) => {  
-    user.setUserInfo(arr[0].value,arr[1].value);
+  (obj) => {  
+    user.setUserInfo(obj['name'],obj['job']);
     popProfile.close();
   }
 );
@@ -92,10 +92,9 @@ const popProfile = new PopupWithForm(
 popProfile.setEventListeners();
 const popAddCard = new PopupWithForm(
   placePopup,
-  (arr) => {
-    
-    const name = arr[0].value;
-    const link = arr[1].value;    
+  (obj) => {
+    const name = obj['place-name'];
+    const link = obj['place-image'];    
     const card= createCard({name,link});
     cardSection.addItemToStart(card);
     
