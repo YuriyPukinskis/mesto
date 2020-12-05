@@ -1,0 +1,21 @@
+.profile__overlay{
+  max-width: 127px;
+  max-height: 127px;
+  background: #2A2C2F;
+  z-index: 2;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  grid-column: 1;
+  grid-row: 1;
+  transition: 3s;
+  border-radius: 50%;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile__overlay:hover{
+  opacity: 0.8;
+}

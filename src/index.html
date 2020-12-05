@@ -18,11 +18,16 @@
     <main class="main">
 
       <section class="profile">
-        <img class="profile__logo" src="<%=require('./images/Avatar.png')%>" alt="Аватар профиля">
-        <!-- <img class="profile__logo" src="./images/Avatar.png" alt="Аватар профиля"> -->
+        <div class="profile__art">
+          <img class="profile__logo"  alt="Аватар профиля">
+          <div class="profile__overlay">
+            <img class="profile__pen" src="<%=require('./images/pen.png')%>" alt="Редактировать">
+            <!-- <img class="profile__pen" src="./images/pen.png" alt="Редактировать"> -->
+          </div>
+        </div>
         <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <p class="profile__occupation">Исследователь океана</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__occupation"></p>
             <button class="profile__button" type="button"></button>
         </div>
         <button class="profile__add-button" type="button"></button>
@@ -58,6 +63,22 @@
       <button class="popup__close place-close" type="button"></button>
     </form>
   </div>
+  <div class="popup avatar-popup">
+    <form class="popup__container avatar-container" name="editAvatar" novalidate>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <input id="url-input" class="popup__input avatar-popup__input_image" placeholder='Ссылка на картинку' name="avatar-image" type="url" required>
+      <span id="url-input-error" class="popup__input-error"></span> 
+      <button class="popup__button avatar-submit" type="submit" name="avatar-submit">Сохранить</button>
+      <button class="popup__close avatar-close" type="button"></button>
+    </form>
+  </div>
+  <div class="popup delete-popup">
+    <form class="popup__container delete-container">
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button class="popup__button place-delete" type="button" name="delete-submit">Да</button>
+      <button class="popup__close delete-close" type="button"></button>
+    </form>
+  </div>
   <div class="popup image-popup">
     <div class="image-popup__container">
       <img class="image-popup__img" src="#" alt="Изображение">
@@ -71,7 +92,10 @@
       <button class="element__delete" type="button"></button>
       <div class="element__caption">
         <h2 class="element__text"></h2>
-        <button class="element__button" type="button"></button>
+        <div class="element__section">
+          <button class="element__button" type="button"></button>
+          <p class="element__likeCount"></p>
+        </div>
       </div>
     </div>
   </template>

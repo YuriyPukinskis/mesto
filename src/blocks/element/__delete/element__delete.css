@@ -7,7 +7,7 @@
   background: url("../../../images/Trash.png") no-repeat;
   background-size: contain;
   cursor: pointer;
-  
+  visibility: hidden;
 
   z-index:2;
   height: 19.3px;
