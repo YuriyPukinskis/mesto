@@ -1,50 +1,49 @@
-import Api from './Api.js';
-import Popup from './Popup.js';
-
 export class Card {
-  constructor(element, cardTemplate, handleCardClick,popImage){
+  constructor(element, cardTemplate, handleCardClick,popImage,deleteCard,likeCard){
     this._element = element;
     this._cardTemplate=cardTemplate;
     this._handlePreviewPicture = handleCardClick;
     this._popImage = popImage;
+    this._deleteCard = deleteCard;
+    this._likeCard = likeCard;
   }
 
   _handleDeleteCard = (evt) => {
-    // evt.target.parentElement.remove();
-    const delPopup = new Popup(document.querySelector('.delete-popup'));
-    delPopup.open();
-    delPopup.setEventListeners();
-    const api = new Api({
-      baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      }
-    }); 
-    // alert(this._element.cardId);
-    document.querySelector('.place-delete').addEventListener('click',()=>{
-      api.deleteCardFromServer(this._element.cardId);
-      evt.target.parentElement.remove();
-      delPopup.close();
-    }); 
+    // const delPopup = new Popup(document.querySelector('.delete-popup'));
+    // delPopup.open();
+    // delPopup.setEventListeners();
+    // const api = new Api({
+    //   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+    //   headers: {
+    //     authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
+    //     'Content-Type': 'application/json'
+    //   }
+    // }); 
+    // document.querySelector('.place-delete').addEventListener('click',()=>{
+    //   api.deleteCardFromServer(this._element.cardId);
+    //   evt.target.parentElement.remove();
+    //   delPopup.close();
+    // }); 
+    this._deleteCard(evt,this._element.cardId);
   };
 
   _handleLikeIcon = (evt) => {
     evt.target.classList.toggle('element__button_liked');
-    const api = new Api({
-      baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      }
-    }); 
-    if(evt.target.classList.contains('element__button_liked')){
-      api.likeCardOnServer(this._element.cardId)
-      evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)+1;
-    }else{
-      api.dislikeCardOnServer(this._element.cardId)
-      evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)-1;
-    }
+    // const api = new Api({
+    //   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+    //   headers: {
+    //     authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
+    //     'Content-Type': 'application/json'
+    //   }
+    // }); 
+    // if(evt.target.classList.contains('element__button_liked')){
+    //   api.likeCardOnServer(this._element.cardId)
+    //   evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)+1;
+    // }else{
+    //   api.dislikeCardOnServer(this._element.cardId)
+    //   evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)-1;
+    // }
+    this._likeCard(evt,this._element.cardId);
   };
 
   getCardElement() {

@@ -1,64 +1,79 @@
+import executePageGeneration from '../pages/index.js'
 export default class Api {
   constructor(options) {
     this.options=options;
   }
   
-  getInitialCards(cardArr) {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384'
-      }
+  getInitialCards() {
+    let result = fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
+      headers: this.options.headers
     })
-    .then(res => res.json())
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .then((result) => {
-      result.forEach(element => {
-        const name=element.name;
-        const link=element.link;
-        const numberOfLikes=element.likes.length;
-        const cardId=element._id;
-        let liked=false;
-        const myIdInLikesArray='d2ab633474e1b5e0c0fdeb91';
-        for (let i = 0; i < element.likes.length; i++) {
-          if (element.likes[i]._id === myIdInLikesArray) {
-            liked=true;
-          }
-        }
-        let mine=false;
-        if (element.owner._id === myIdInLikesArray) {
-          mine=true;
-        }
+      return(result)
+      // result.forEach(element => {
+      //   const name=element.name;
+      //   const link=element.link;
+      //   const numberOfLikes=element.likes.length;
+      //   const cardId=element._id;
+      //   let liked=false;
+        
+      //   for (let i = 0; i < element.likes.length; i++) {
+      //     if (element.likes[i]._id === myIdInLikesArray) {
+      //       liked=true;
+      //     }
+      //   }
+      //   let mine=false;
+      //   if (element.owner._id === myIdInLikesArray) {
+      //     mine=true;
+      //   }
 
-        cardArr.push({name,link,numberOfLikes,cardId,liked,mine});       
-      });     
+      //   cardArr.push({name,link,numberOfLikes,cardId,liked,mine});       
+      // }
+      // ); 
+      // return cardArr     
     })
+    return(result)
+    // .then((cardArr)=>{
+    //   executePageGeneration(cardArr)
+    // })
   }
   
-  initProfileFomServer(pageProfileName,pageProfileJob,pageProfileAvatar){
-    fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me ', {
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384'
-      }
+  initProfileFomServer(){
+    let res=fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me ', {
+      headers: this.options.headers
     })
-    .then(res => res.json())
-    .then((result) => {
-      pageProfileName.textContent=result.name;
-      pageProfileJob.textContent=result.about;
-      pageProfileAvatar.src = result.avatar;
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((res) => {
+      return res
+      // const myIdInLikesArray=result._id;
+      // pageProfileName.textContent=result.name;
+      // pageProfileJob.textContent=result.about;
+      // pageProfileAvatar.src = result.avatar;
     }); 
+    return res
   }
 
-  postCardToServer(cardName,cardLink,buttonName){
+  postCardToServer(cardName,cardLink,buttonName,popAddCard,placesName){
     buttonName.value = 'Сохранение...';
     fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
       method: 'POST',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      },
+      headers: this.options.headers,
       body: JSON.stringify({
         name: cardName,
         link: cardLink
       })
+    })
+    .then(()=>{
+      popAddCard.close(placesName);
     }); 
   }
 
@@ -66,10 +81,7 @@ export default class Api {
     buttonName.value = 'Сохранение...';
     fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me', {
       method: 'PATCH',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      },
+      headers: this.options.headers,
       body: JSON.stringify({
         name: profileName,
         about: profileJob
@@ -80,10 +92,7 @@ export default class Api {
   deleteCardFromServer(cardId){
     fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      },
+      headers: this.options.headers,
       body: JSON.stringify({})
     }); 
   }
@@ -91,10 +100,7 @@ export default class Api {
   likeCardOnServer(cardId){
     fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/${cardId}`, {
       method: 'PUT',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      },
+      headers: this.options.headers,
       body: JSON.stringify({})
     }); 
   
@@ -103,10 +109,7 @@ export default class Api {
   dislikeCardOnServer(cardId){
     fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      },
+      headers: this.options.headers,
       body: JSON.stringify({})
     }); 
   }
@@ -114,10 +117,7 @@ export default class Api {
   postAvatarToServer(avatarLink){
     fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar', {
       method: 'PATCH',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      },
+      headers: this.options.headers,
       body: JSON.stringify({
         avatar: avatarLink
       })

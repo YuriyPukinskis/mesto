@@ -1,12 +1,12 @@
 import {Card} from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
+import Popup from '../components/Popup.js';
 import PopupWithImage from'../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import {FormValidator} from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import{cardPlace} from '../constants/constants.js';
 import Api from '../components/Api.js';
-import Popup from '../components/Popup.js';
 import './index.css';
 
 
@@ -46,7 +46,7 @@ function handleCardClick(popImage,src,name) {
 function openProfile(popProfile,user){
   popProfile.open();
   const { name, job } = user.getUserInfo()
-  api.postLoginToServer(name,job,profileButton)
+  // api.postLoginToServer(name,job,profileButton)
   nameInput.value = name;
   jobInput.value = job;
 }
@@ -69,25 +69,59 @@ function validateForm(targetForm) {
   valid.enableValidation();
 }
 
-function createCard(element) {
-  const popImage = new PopupWithImage(imagePopup);
-  popImage.setEventListeners();
-  const card = new Card(element, cardTemplate, handleCardClick, popImage);
+function createCard(element,popImage) {
+  
+ 
+  const card = new Card(element, cardTemplate, handleCardClick, popImage,
+    (evt,delTarget)=>{
+      const delPopup = new Popup(document.querySelector('.delete-popup'));
+    delPopup.open();
+    delPopup.setEventListeners();
+    const api = new Api({
+      baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+      headers: {
+        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
+        'Content-Type': 'application/json'
+      }
+    }); 
+    document.querySelector('.place-delete').addEventListener('click',()=>{
+      api.deleteCardFromServer(delTarget);
+      evt.target.parentElement.remove();
+      delPopup.close();
+    }); 
+    },
+    (evt,likeTarget)=>{
+      const api = new Api({
+        baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+        headers: {
+          authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
+          'Content-Type': 'application/json'
+        }
+      }); 
+      if(evt.target.classList.contains('element__button_liked')){
+        api.likeCardOnServer(likeTarget)
+        evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)+1;
+      }else{
+        api.dislikeCardOnServer(likeTarget)
+        evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)-1;
+      }
+    });
   const newCardElement = card.getCardElement();
   return newCardElement
 }
 
-function executePageGeneration(cardArr){
+export default function executePageGeneration(cardArr){
   const cardSection = new Section({
     items: cardArr,
     renderer: (item) => {
-      const card= createCard(item);
+      const card= createCard(item,popImage);
       cardSection.addItem(card);  
     }
   },
   cardPlace
   );
-  
+  const popImage = new PopupWithImage(imagePopup);
+  popImage.setEventListeners();
   const avatar = new PopupWithForm(
     avatarPopup,
     (obj)=>{
@@ -106,7 +140,8 @@ function executePageGeneration(cardArr){
   profilePopup,
   (obj) => {  
     user.setUserInfo(obj['name'],obj['job']);
-    popProfile.close();
+    popProfile.close(nameInput);
+    api.postLoginToServer(obj['name'],obj['job'],profileButton)
   }
   );
 
@@ -116,12 +151,12 @@ function executePageGeneration(cardArr){
   (obj) => {
     const name = obj['place-name'];
     const link = obj['place-image'];  
-    api.postCardToServer(name,link,placeButton);  
+    api.postCardToServer(name,link,placeButton,popAddCard,placesName);  
     const card= createCard({name,link});
     cardSection.addItemToStart(card);
     
-    placesName.form.reset();
-    popAddCard.close();
+    
+    
   }
   )
   popAddCard.setEventListeners();
@@ -134,7 +169,7 @@ function executePageGeneration(cardArr){
 
   cardSection.drawElem();
   }
-
+  
 //     ВЫЗОВЫ
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
@@ -145,8 +180,46 @@ const api = new Api({
 }); 
 
 
+api.initProfileFomServer()
+  .then(function(res){
+    const myIdInLikesArray=res._id;
+  
+    pageProfileName.textContent=res.name;
+    pageProfileJob.textContent=res.about;
+    pageProfileAvatar.src = res.avatar;
+    const cardArr =[]
+    api.getInitialCards(cardArr,myIdInLikesArray)
+      .then(function(result){
+        result.forEach(element => {
+          const name=element.name;
+          const link=element.link;
+          const numberOfLikes=element.likes.length;
+          const cardId=element._id;
+          let liked=false;
+          
+          for (let i = 0; i < element.likes.length; i++) {
+            if (element.likes[i]._id === myIdInLikesArray) {
+              liked=true;
+            }
+          }
+          let mine=false;
+          if (element.owner._id === myIdInLikesArray) {
+            mine=true;
+          }
+  
+          cardArr.push({name,link,numberOfLikes,cardId,liked,mine});       
+        });  
+        return cardArr
+      })
+      .then((cardArr)=>{
+        executePageGeneration(cardArr)
+      })
+})
+  // .then((cardArr) => executePageGeneration(cardArr));
 
-api.initProfileFomServer(pageProfileName,pageProfileJob,pageProfileAvatar)
-const cardArr=[]
-api.getInitialCards(cardArr);
-setTimeout(executePageGeneration, 5000, cardArr);
+// api.getInitialCards(cardArr)
+//   .then((cardArr)=>{
+//     alert(cardArr)
+//     executePageGeneration(cardArr)
+//   })
+// // setTimeout(executePageGeneration, 5000, cardArr);

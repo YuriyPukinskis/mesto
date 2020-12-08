@@ -8,14 +8,10 @@ export default class Section{
 
   addItem(element){
     this._container.append(element);
-    const del_button = document.querySelector('.element__delete');
-    // del_button.classList.remove('popup_visible');
   }
 
   addItemToStart(element){
     this._container.prepend(element);
-    const del_button = document.querySelector('.element__delete');
-    // del_button.classList.add('popup_visible');
   }
 
   clear() {
