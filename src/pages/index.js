@@ -46,7 +46,6 @@ function handleCardClick(popImage,src,name) {
 function openProfile(popProfile,user){
   popProfile.open();
   const { name, job } = user.getUserInfo()
-  // api.postLoginToServer(name,job,profileButton)
   nameInput.value = name;
   jobInput.value = job;
 }
@@ -110,7 +109,7 @@ function createCard(element,popImage) {
   return newCardElement
 }
 
-export default function executePageGeneration(cardArr){
+function executePageGeneration(cardArr,myIdInLikesArray){
   const cardSection = new Section({
     items: cardArr,
     renderer: (item) => {
@@ -118,7 +117,10 @@ export default function executePageGeneration(cardArr){
       cardSection.addItem(card);  
     }
   },
-  cardPlace
+  cardPlace,
+  ()=>{
+    drawCards(cardArr,myIdInLikesArray)
+  }
   );
   const popImage = new PopupWithImage(imagePopup);
   popImage.setEventListeners();
@@ -138,10 +140,11 @@ export default function executePageGeneration(cardArr){
   
   const popProfile = new PopupWithForm(
   profilePopup,
-  (obj) => {  
+  (obj,evt) => {  
+    evt.preventDefault();
     user.setUserInfo(obj['name'],obj['job']);
-    popProfile.close(nameInput);
     api.postLoginToServer(obj['name'],obj['job'],profileButton)
+    popProfile.close(nameInput);
   }
   );
 
@@ -151,12 +154,10 @@ export default function executePageGeneration(cardArr){
   (obj) => {
     const name = obj['place-name'];
     const link = obj['place-image'];  
-    api.postCardToServer(name,link,placeButton,popAddCard,placesName);  
-    const card= createCard({name,link});
-    cardSection.addItemToStart(card);
-    
-    
-    
+    Promise.resolve(api.postCardToServer(name,link,placeButton,cardArr,myIdInLikesArray))
+    .then(function(){popAddCard.close(placesName);
+      const card= createCard({name,link},popImage);
+      cardSection.addItemToStart(card);}) 
   }
   )
   popAddCard.setEventListeners();
@@ -168,27 +169,10 @@ export default function executePageGeneration(cardArr){
 
 
   cardSection.drawElem();
-  }
-  
-//     ВЫЗОВЫ
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-  headers: {
-    authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-    'Content-Type': 'application/json'
-  }
-}); 
+}
 
-
-api.initProfileFomServer()
-  .then(function(res){
-    const myIdInLikesArray=res._id;
-  
-    pageProfileName.textContent=res.name;
-    pageProfileJob.textContent=res.about;
-    pageProfileAvatar.src = res.avatar;
-    const cardArr =[]
-    api.getInitialCards(cardArr,myIdInLikesArray)
+export default function drawCards(cardArr,myIdInLikesArray){
+  api.getInitialCards(cardArr,myIdInLikesArray)
       .then(function(result){
         result.forEach(element => {
           const name=element.name;
@@ -212,8 +196,55 @@ api.initProfileFomServer()
         return cardArr
       })
       .then((cardArr)=>{
-        executePageGeneration(cardArr)
+        executePageGeneration(cardArr,myIdInLikesArray)
       })
+}
+  
+//     ВЫЗОВЫ
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+  headers: {
+    authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
+    'Content-Type': 'application/json'
+  }
+}); 
+
+
+api.initProfileFomServer()
+  .then(function(res){
+    const myIdInLikesArray=res._id;
+  
+    pageProfileName.textContent=res.name;
+    pageProfileJob.textContent=res.about;
+    pageProfileAvatar.src = res.avatar;
+    const cardArr =[]
+    drawCards(cardArr,myIdInLikesArray)
+    // api.getInitialCards(cardArr,myIdInLikesArray)
+    //   .then(function(result){
+    //     result.forEach(element => {
+    //       const name=element.name;
+    //       const link=element.link;
+    //       const numberOfLikes=element.likes.length;
+    //       const cardId=element._id;
+    //       let liked=false;
+          
+    //       for (let i = 0; i < element.likes.length; i++) {
+    //         if (element.likes[i]._id === myIdInLikesArray) {
+    //           liked=true;
+    //         }
+    //       }
+    //       let mine=false;
+    //       if (element.owner._id === myIdInLikesArray) {
+    //         mine=true;
+    //       }
+  
+    //       cardArr.push({name,link,numberOfLikes,cardId,liked,mine});       
+    //     });  
+    //     return cardArr
+    //   })
+    //   .then((cardArr)=>{
+    //     executePageGeneration(cardArr)
+    //   })
 })
   // .then((cardArr) => executePageGeneration(cardArr));
 

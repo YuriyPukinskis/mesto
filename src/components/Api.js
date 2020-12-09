@@ -1,4 +1,4 @@
-import executePageGeneration from '../pages/index.js'
+import drawCards from '../pages/index.js';
 export default class Api {
   constructor(options) {
     this.options=options;
@@ -62,7 +62,7 @@ export default class Api {
     return res
   }
 
-  postCardToServer(cardName,cardLink,buttonName,popAddCard,placesName){
+  postCardToServer(cardName,cardLink,buttonName,cardArr,myIdInLikesArray){
     buttonName.value = 'Сохранение...';
     fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
       method: 'POST',
@@ -72,9 +72,6 @@ export default class Api {
         link: cardLink
       })
     })
-    .then(()=>{
-      popAddCard.close(placesName);
-    }); 
   }
 
   postLoginToServer(profileName,profileJob,buttonName){
@@ -123,5 +120,4 @@ export default class Api {
       })
     }); 
   }
-
 }
