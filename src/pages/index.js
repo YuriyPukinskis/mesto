@@ -33,8 +33,8 @@ const avatarChange = document.querySelector('.profile__art');
 const avatarPopup = document.querySelector('.avatar-popup');
 const placeButton = document.querySelector('.place-submit');
 const profileButton = document.querySelector('.profile__submit');
-
-
+const buttonName = document.querySelector('.place-submit');
+const delButtonName = document.querySelector('.place-delete');
 
 
 //  ФУНКЦИИ
@@ -76,27 +76,28 @@ function createCard(element,popImage) {
       const delPopup = new Popup(document.querySelector('.delete-popup'));
     delPopup.open();
     delPopup.setEventListeners();
-    const api = new Api({
-      baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-      headers: {
-        authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-        'Content-Type': 'application/json'
-      }
-    }); 
+    // const api = new Api({
+    //   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+    //   headers: {
+    //     authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
+    //     'Content-Type': 'application/json'
+    //   }
+    // }); 
     document.querySelector('.place-delete').addEventListener('click',()=>{
       api.deleteCardFromServer(delTarget);
-      evt.target.parentElement.remove();
-      delPopup.close();
+      delButtonName.textContent = 'Удаление...'
+      // evt.target.parentElement.remove();
+      // delPopup.close();
     }); 
     },
     (evt,likeTarget)=>{
-      const api = new Api({
-        baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-        headers: {
-          authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-          'Content-Type': 'application/json'
-        }
-      }); 
+      // const api = new Api({
+      //   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+      //   headers: {
+      //     authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
+      //     'Content-Type': 'application/json'
+      //   }
+      // }); 
       if(evt.target.classList.contains('element__button_liked')){
         api.likeCardOnServer(likeTarget)
         evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)+1;
@@ -117,11 +118,7 @@ function executePageGeneration(cardArr,myIdInLikesArray){
       cardSection.addItem(card);  
     }
   },
-  cardPlace,
-  ()=>{
-    drawCards(cardArr,myIdInLikesArray)
-  }
-  );
+  cardPlace);
   const popImage = new PopupWithImage(imagePopup);
   popImage.setEventListeners();
   const avatar = new PopupWithForm(
@@ -140,8 +137,7 @@ function executePageGeneration(cardArr,myIdInLikesArray){
   
   const popProfile = new PopupWithForm(
   profilePopup,
-  (obj,evt) => {  
-    evt.preventDefault();
+  (obj) => {  
     user.setUserInfo(obj['name'],obj['job']);
     api.postLoginToServer(obj['name'],obj['job'],profileButton)
     popProfile.close(nameInput);
@@ -155,9 +151,10 @@ function executePageGeneration(cardArr,myIdInLikesArray){
     const name = obj['place-name'];
     const link = obj['place-image'];  
     Promise.resolve(api.postCardToServer(name,link,placeButton,cardArr,myIdInLikesArray))
-    .then(function(){popAddCard.close(placesName);
-      const card= createCard({name,link},popImage);
-      cardSection.addItemToStart(card);}) 
+    .then(function(){buttonName.textContent = 'Сохранение...';
+      // const card= createCard({name,link},popImage);
+      // cardSection.addItemToStart(card);
+    }) 
   }
   )
   popAddCard.setEventListeners();

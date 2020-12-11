@@ -1,9 +1,8 @@
 export default class Section{
-  constructor({items, renderer}, containerSelector,cardAdder){
+  constructor({items, renderer}, containerSelector){
     this._items=items;
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
-    this._cardAdder = cardAdder;
   }
 
   addItem(element){
@@ -12,8 +11,7 @@ export default class Section{
 
   addItemToStart(element){
     // this._container.prepend(element);
-     this.clear();
-    // this._cardAdder()
+    //  this.clear();
   }
 
   clear() {

@@ -62,8 +62,7 @@ export default class Api {
     return res
   }
 
-  postCardToServer(cardName,cardLink,buttonName,cardArr,myIdInLikesArray){
-    buttonName.value = 'Сохранение...';
+  postCardToServer(cardName,cardLink){
     fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
       method: 'POST',
       headers: this.options.headers,
@@ -72,6 +71,10 @@ export default class Api {
         link: cardLink
       })
     })
+    .then(()=>{
+      location.reload()
+    })
+    return true
   }
 
   postLoginToServer(profileName,profileJob,buttonName){
@@ -83,7 +86,7 @@ export default class Api {
         name: profileName,
         about: profileJob
       })
-    }); 
+    })
   }
 
   deleteCardFromServer(cardId){
@@ -91,6 +94,9 @@ export default class Api {
       method: 'DELETE',
       headers: this.options.headers,
       body: JSON.stringify({})
+    })
+    .then(()=>{
+      location.reload()
     }); 
   }
 
