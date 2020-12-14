@@ -5,7 +5,7 @@ export default class Api {
   }
   
   getInitialCards() {
-    let result = fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
       headers: this.options.headers
     })
     .then(res => {if (res.ok) {
@@ -13,38 +13,11 @@ export default class Api {
     }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .then((result) => {
-      return(result)
-      // result.forEach(element => {
-      //   const name=element.name;
-      //   const link=element.link;
-      //   const numberOfLikes=element.likes.length;
-      //   const cardId=element._id;
-      //   let liked=false;
-        
-      //   for (let i = 0; i < element.likes.length; i++) {
-      //     if (element.likes[i]._id === myIdInLikesArray) {
-      //       liked=true;
-      //     }
-      //   }
-      //   let mine=false;
-      //   if (element.owner._id === myIdInLikesArray) {
-      //     mine=true;
-      //   }
-
-      //   cardArr.push({name,link,numberOfLikes,cardId,liked,mine});       
-      // }
-      // ); 
-      // return cardArr     
-    })
-    return(result)
-    // .then((cardArr)=>{
-    //   executePageGeneration(cardArr)
-    // })
+  
   }
   
   initProfileFomServer(){
-    let res=fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me ', {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me ', {
       headers: this.options.headers
     })
     .then(res => {if (res.ok) {
@@ -52,18 +25,15 @@ export default class Api {
     }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .then((res) => {
-      return res
-      // const myIdInLikesArray=result._id;
-      // pageProfileName.textContent=result.name;
-      // pageProfileJob.textContent=result.about;
-      // pageProfileAvatar.src = result.avatar;
-    }); 
-    return res
+    // .then((res) => {
+      
+    //   return res
+    // }); 
+    // return res
   }
 
   postCardToServer(cardName,cardLink){
-    fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
       method: 'POST',
       headers: this.options.headers,
       body: JSON.stringify({
@@ -71,15 +41,18 @@ export default class Api {
         link: cardLink
       })
     })
-    .then(()=>{
-      location.reload()
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
     })
-    return true
+    // .then(()=>{
+    //   location.reload()
+    // })
   }
 
   postLoginToServer(profileName,profileJob,buttonName){
-    buttonName.value = 'Сохранение...';
-    fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me', {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me', {
       method: 'PATCH',
       headers: this.options.headers,
       body: JSON.stringify({
@@ -87,43 +60,67 @@ export default class Api {
         about: profileJob
       })
     })
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
   }
 
   deleteCardFromServer(cardId){
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/${cardId}`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/${cardId}`, {
       method: 'DELETE',
       headers: this.options.headers,
       body: JSON.stringify({})
     })
-    .then(()=>{
-      location.reload()
-    }); 
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    // .then(()=>{
+    //   location.reload()
+    // }); 
   }
 
   likeCardOnServer(cardId){
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/${cardId}`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: this.options.headers,
       body: JSON.stringify({})
-    }); 
-  
+    })
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })  
   }
 
   dislikeCardOnServer(cardId){
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/${cardId}`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-18/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this.options.headers,
       body: JSON.stringify({})
+    })
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
     }); 
   }
 
   postAvatarToServer(avatarLink){
-    fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar', {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me/avatar', {
       method: 'PATCH',
       headers: this.options.headers,
       body: JSON.stringify({
         avatar: avatarLink
       })
+    })
+    .then(res => {if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
     }); 
   }
 }

@@ -6,6 +6,11 @@ export default class PopupWithForm extends Popup{
     this.submitCallback = submitCallback;
   }
 
+  open(name,text){
+    super.open();
+    name.textContent=text
+  }
+
   _getInputValues(evt){
     evt.preventDefault();
     const inputList = Array.from(this.popupSelector.querySelectorAll('.popup__input'));
@@ -20,6 +25,8 @@ export default class PopupWithForm extends Popup{
       input.form.reset();
     }
   }
+
+  
 
   setEventListeners(){
     super.setEventListeners();

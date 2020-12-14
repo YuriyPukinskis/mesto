@@ -10,7 +10,7 @@ export default class Section{
   }
 
   addItemToStart(element){
-    // this._container.prepend(element);
+    this._container.prepend(element);
     //  this.clear();
   }
 

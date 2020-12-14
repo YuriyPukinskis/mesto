@@ -14,4 +14,8 @@ export default class UserInfo{
     this.name.textContent = name; 
     this.occupation.textContent = job;
   }
+
+  updateAvatar(target,link){
+    target.src = link;
+  }
 }

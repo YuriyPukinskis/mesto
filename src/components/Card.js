@@ -1,50 +1,30 @@
 export class Card {
-  constructor(element, cardTemplate, handleCardClick,popImage,deleteCard,likeCard){
+  constructor(element, cardTemplate, handleCardClick,popImage,deleteCard,addLike,removeLike){
     this._element = element;
     this._cardTemplate=cardTemplate;
     this._handlePreviewPicture = handleCardClick;
     this._popImage = popImage;
     this._deleteCard = deleteCard;
-    this._likeCard = likeCard;
+    this._addLike = addLike;
+    this._removeLike = removeLike;
   }
 
   _handleDeleteCard = (evt) => {
-    // const delPopup = new Popup(document.querySelector('.delete-popup'));
-    // delPopup.open();
-    // delPopup.setEventListeners();
-    // const api = new Api({
-    //   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-    //   headers: {
-    //     authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-    //     'Content-Type': 'application/json'
-    //   }
-    // }); 
-    // document.querySelector('.place-delete').addEventListener('click',()=>{
-    //   api.deleteCardFromServer(this._element.cardId);
-    //   evt.target.parentElement.remove();
-    //   delPopup.close();
-    // }); 
     this._deleteCard(evt,this._element.cardId);
   };
 
   _handleLikeIcon = (evt) => {
     evt.target.classList.toggle('element__button_liked');
-    // const api = new Api({
-    //   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-    //   headers: {
-    //     authorization: 'ece4ec17-0364-4590-98d8-28086b7fa384',
-    //     'Content-Type': 'application/json'
-    //   }
-    // }); 
-    // if(evt.target.classList.contains('element__button_liked')){
-    //   api.likeCardOnServer(this._element.cardId)
-    //   evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)+1;
-    // }else{
-    //   api.dislikeCardOnServer(this._element.cardId)
-    //   evt.target.nextElementSibling.textContent=Number(evt.target.nextElementSibling.textContent)-1;
-    // }
-    this._likeCard(evt,this._element.cardId);
+    this._checkCardLike(evt);
   };
+
+  _checkCardLike =(evt) => {
+    if(evt.target.classList.contains('element__button_liked')){ 
+      this._addLike(evt,this._element.cardId);
+    }else {
+      this._removeLike(evt,this._element.cardId);
+    }
+  }
 
   getCardElement() {
     const _card = this._cardTemplate.content;
