@@ -1,6 +1,10 @@
 .profile__overlay{
-  max-width: 127px;
-  max-height: 127px;
+
+  margin:0;
+  padding:0;
+  margin-right:30px;
+  width: 127px;
+  height: 127px;
   background: #2A2C2F;
   z-index: 2;
   opacity: 0;
@@ -13,7 +17,7 @@
   transition: 3s;
   border-radius: 50%;
   align-items: center;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .profile__overlay:hover{

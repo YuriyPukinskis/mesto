@@ -47,8 +47,9 @@ function handleCardClick(popImage,src,name) {
 }
 
 function openProfile(popProfile,user){
-  popProfile.open();
+  
   const { name, job } = user.getUserInfo()
+  popProfile.open(profileButton,'Сохранить');
   nameInput.value = name;
   jobInput.value = job;
 }
@@ -131,7 +132,7 @@ function executePageGeneration(cardArr){
       avatarButton.textContent = 'Сохранение...';
     })
   avatarChange.addEventListener('click',()=>{
-    avatar.open(avatarChange,'Сохранить')
+    avatar.open(avatarButton,'Сохранить')
   })
   avatar.setEventListeners();
   infoButton.addEventListener('click', ()=>openProfile(popProfile,user));
@@ -147,6 +148,7 @@ function executePageGeneration(cardArr){
       .catch((err) => {
         console.log(err); 
       });
+      profileButton.textContent = 'Сохранение...';
   }
   );
 
