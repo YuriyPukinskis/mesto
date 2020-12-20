@@ -1,30 +1,22 @@
 import Popup from './Popup.js'
 
 export default class DeleteCardPopup extends Popup{
-  constructor(popupSelector,submitCallback){
-    super(popupSelector);
-    this.submitCallback = submitCallback;
+  constructor(popupElement) {
+    super(popupElement);
+    this._submitHandler = () => {};
   }
 
-  open(name,text){
-    super.open();
-    this.popupSelector.removeEventListener('submit', this.call);
-    this.setEventListeners();
+  refreshForm(name,text){
+    this._popupSelector.removeEventListener('submit', (evt) => this._submitHandler(evt));
     name.textContent = text;
   }
 
-  call=(evt)=>{
-    this.submitCallback(evt)
-  }
-
-  close(){
-    super.close();
-    this.popupSelector.removeEventListener('submit', this.call);
+  changeSubmitHandler(handler) {
+    this._submitHandler = handler;
   }
   
-
-  setEventListeners(){
+  setEventListeners() {
     super.setEventListeners();
-    this.popupSelector.addEventListener('submit', this.call);
+    this._popupSelector.addEventListener('submit', (evt) => this._submitHandler(evt));
   }
 }

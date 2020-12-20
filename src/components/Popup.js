@@ -2,7 +2,7 @@ import{ESC_CODE} from '../constants/constants.js';
 
 export default class Popup{
   constructor(popupSelector){
-    this.popupSelector=popupSelector;
+    this._popupSelector=popupSelector;
   }
 
   _handleEscDown = (evt) => {
@@ -12,12 +12,12 @@ export default class Popup{
   }
 
   open() {
-    this.popupSelector.classList.add('popup_visible'); 
+    this._popupSelector.classList.add('popup_visible'); 
     document.addEventListener('keydown',this._handleEscDown); 
   }
   
   close() {
-    this.popupSelector.classList.remove('popup_visible');
+    this._popupSelector.classList.remove('popup_visible');
     document.removeEventListener('keydown',this._handleEscDown);
   } 
 
@@ -28,8 +28,8 @@ export default class Popup{
   }
 
   setEventListeners(){
-    this.popupSelector.addEventListener('click',this._clickOnSide.bind(this)); 
-    const popupCloseButton = this.popupSelector.querySelector('.popup__close');
+    this._popupSelector.addEventListener('click',this._clickOnSide.bind(this)); 
+    const popupCloseButton = this._popupSelector.querySelector('.popup__close');
     popupCloseButton.addEventListener('click', () => this.close());
   }
 }

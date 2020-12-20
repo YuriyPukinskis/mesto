@@ -71,47 +71,63 @@ function validateForm(targetForm) {
   valid.enableValidation();
 }
 
-function createCard(element,popImage) {
-  const card = new Card(element, cardTemplate, handleCardClick, popImage,
-    (card,delTarget)=>{
-      const delPopup = new DeleteCardPopup(deletePopup,function handler(evt){
-        evt.preventDefault();
-        Promise.resolve(api.deleteCardFromServer(delTarget))
-          .then(function(){
-            card.target.parentElement.remove();
-            delPopup.close();            
-          })
-          .catch((err) => {
-            console.log(err); 
-          });
-        delButtonName.textContent = 'Удаление...'
-      });
-      delPopup.open(delButtonName,'Удалить');
+function createCard(element,popImage,myIdInLikesArray) {
+
+  const popupDeleteCard =  new DeleteCardPopup(deletePopup);
+  popupDeleteCard.setEventListeners();
+
+  const card = new Card(myIdInLikesArray, element, cardTemplate, handleCardClick, popImage,
+    (target,cardId) => {
+    popupDeleteCard.changeSubmitHandler((evt) => {
+      evt.preventDefault();
+      api.deleteCardFromServer(cardId)
+        .then(() => {
+          popupDeleteCard.refreshForm(delButtonName,'Да')
+          // popupDeleteCard.close();
+          // popupDeleteCard.refreshForm(delButtonName,'Да')
+        })
+        .then(() => {
+          card.removeCard(target);
+          popupDeleteCard.close();
+          
+        })
+        .catch((err) => {
+          console.log(err); 
+        });
+        delButtonName.textContent='Удаление...'
+    })
+    popupDeleteCard.open()
     },
-    (evt,likeTarget)=>{
-      Promise.resolve(api.likeCardOnServer(likeTarget))
-        .then(function(result){evt.target.nextElementSibling.textContent=result.likes.length})
+    
+    (evt,likeTarget) => {
+      api.likeCardOnServer(likeTarget)
+        .then((data) => {
+          card.updateLikes(evt.target,data);
+        })
         .catch((err) => {
           console.log(err); 
         });
     },
     (evt,likeTarget)=>{
-      Promise.resolve(api.dislikeCardOnServer(likeTarget))
-        .then(function(result){evt.target.nextElementSibling.textContent=result.likes.length})
+      api.dislikeCardOnServer(likeTarget)
+        .then((data) => {
+          card.updateLikes(evt.target,data);
+        })
         .catch((err) => {
           console.log(err); 
         });
     }
     );
+
   const newCardElement = card.getCardElement();
   return newCardElement
 }
 
-function executePageGeneration(cardArr){
+function executePageGeneration(cardArr,myIdInLikesArray){
   const cardSection = new Section({
     items: cardArr,
     renderer: (item) => {
-      const card= createCard(item,popImage);
+      const card= createCard(item,popImage,myIdInLikesArray);
       cardSection.addItem(card);  
     }
   },
@@ -137,7 +153,7 @@ function executePageGeneration(cardArr){
   avatar.setEventListeners();
   infoButton.addEventListener('click', ()=>openProfile(popProfile,user));
   addPlaceButton.addEventListener('click', ()=>addCard(popAddCard));
-  const user = new UserInfo(pageProfileName,pageProfileJob);
+  
   
   const popProfile = new PopupWithForm(
   profilePopup,
@@ -158,7 +174,7 @@ function executePageGeneration(cardArr){
   (obj) => {
     const name = obj['place-name'];
     const link = obj['place-image'];  
-    Promise.resolve(api.postCardToServer(name,link))
+    api.postCardToServer(name,link)
     .then(function(result){
       const newCard= createCard({name,link,cardId:result._id,numberOfLikes:0,mine:true},popImage);
       cardSection.addItemToStart(newCard); 
@@ -189,19 +205,12 @@ export default function drawCards(cardArr,myIdInLikesArray){
           const link=element.link;
           const numberOfLikes=element.likes.length;
           const cardId=element._id;
-          let liked=false;
+          const elementLikes = element.likes
+          const ownerID = element.owner._id;
+
           
-          for (let i = 0; i < element.likes.length; i++) {
-            if (element.likes[i]._id === myIdInLikesArray) {
-              liked=true;
-            }
-          }
-          let mine=false;
-          if (element.owner._id === myIdInLikesArray) {
-            mine=true;
-          }
   
-          cardArr.push({name,link,numberOfLikes,cardId,liked,mine});       
+          cardArr.push({name,link,numberOfLikes,cardId,elementLikes,ownerID});       
         });  
         return cardArr
       })
@@ -221,14 +230,13 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 }); 
-
+const user = new UserInfo(pageProfileName,pageProfileJob);
 api.initProfileFomServer()
   .then(function(res){
     const myIdInLikesArray=res._id;
-  
-    pageProfileName.textContent=res.name;
-    pageProfileJob.textContent=res.about;
-    pageProfileAvatar.src = res.avatar;
+    
+    user.initProfile(pageProfileName,pageProfileJob,pageProfileAvatar,res.name,res.about,res.avatar)
+    
     const cardArr =[]
     drawCards(cardArr,myIdInLikesArray)
   })

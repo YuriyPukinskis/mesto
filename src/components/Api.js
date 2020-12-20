@@ -1,17 +1,25 @@
-import drawCards from '../pages/index.js';
 export default class Api {
   constructor(options) {
     this.options=options;
+  }
+
+  _check(res){
+    if (res.ok) {
+      return res.json();
+    }
+      return Promise.reject(`Ошибка: ${res.status}`);
   }
   
   getInitialCards() {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-18/cards', {
       headers: this.options.headers
     })
-    .then(res => {if (res.ok) {
-      return res.json();
-    }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._check(res)
+    //   if (res.ok) {
+    //   return res.json();
+    // }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
     })
   
   }
@@ -20,16 +28,14 @@ export default class Api {
     return fetch('https://mesto.nomoreparties.co/v1/cohort-18/users/me ', {
       headers: this.options.headers
     })
-    .then(res => {if (res.ok) {
-      return res.json();
-    }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(res => {
+      return this._check(res)
     // .then((res) => {
       
     //   return res
     // }); 
     // return res
+    })
   }
 
   postCardToServer(cardName,cardLink){
@@ -60,10 +66,12 @@ export default class Api {
         about: profileJob
       })
     })
-    .then(res => {if (res.ok) {
-      return res.json();
-    }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._check(res)
+    //   if (res.ok) {
+    //   return res.json();
+    // }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
     })
   }
 
@@ -73,10 +81,12 @@ export default class Api {
       headers: this.options.headers,
       body: JSON.stringify({})
     })
-    .then(res => {if (res.ok) {
-      return res.json();
-    }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._check(res)
+    //   if (res.ok) {
+    //   return res.json();
+    // }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
     })
     // .then(()=>{
     //   location.reload()
@@ -89,10 +99,12 @@ export default class Api {
       headers: this.options.headers,
       body: JSON.stringify({})
     })
-    .then(res => {if (res.ok) {
-      return res.json();
-    }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._check(res)
+    //   if (res.ok) {
+    //   return res.json();
+    // }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
     })  
   }
 
@@ -102,10 +114,12 @@ export default class Api {
       headers: this.options.headers,
       body: JSON.stringify({})
     })
-    .then(res => {if (res.ok) {
-      return res.json();
-    }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._check(res)
+    //   if (res.ok) {
+    //   return res.json();
+    // }
+    //   return Promise.reject(`Ошибка: ${res.status}`);
     }); 
   }
 
@@ -117,10 +131,8 @@ export default class Api {
         avatar: avatarLink
       })
     })
-    .then(res => {if (res.ok) {
-      return res.json();
-    }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      return this._check(res)
     }); 
   }
 }

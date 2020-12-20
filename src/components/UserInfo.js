@@ -18,4 +18,10 @@ export default class UserInfo{
   updateAvatar(target,link){
     target.src = link;
   }
+
+  initProfile(pageProfileName,pageProfileJob,pageProfileAvatar,name,about,avatar){
+    pageProfileName.textContent=name;
+    pageProfileJob.textContent=about;
+    pageProfileAvatar.src = avatar;
+  }
 }
